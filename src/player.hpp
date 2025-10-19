@@ -10,4 +10,6 @@ class Player {
     int column();
     void move_right();
     void move_down();
+    void move_up();
+    void move_left();
 };
