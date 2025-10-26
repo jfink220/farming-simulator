@@ -6,3 +6,7 @@ std::string Soil::symbol() {
 void Soil::end_day(){
   // no-op
 }
+bool Soil::can_harvest(){
+  return false;
+}
+

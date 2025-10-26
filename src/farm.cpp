@@ -46,10 +46,10 @@ void Farm::plant(int row, int column, Plot *plot) {
 
 void Farm::harvest(int row, int column){
   Plot *current_plot = plots.at(row).at(column);
-  if (current_plot->symbol() == "V"){ // specify mature plants
+  if (current_plot->can_harvest()){
     Plot *new_plot = new Soil();
     plots.at(row).at(column) = new_plot;
-    //delete current_plot;
+    delete current_plot;
   }
 
 
@@ -63,6 +63,13 @@ void Farm::end_day(){
     }
   }
   dayNum += 1;
+}
+Farm::~Farm(){
+  for(int i = 0; i < rows; i++){
+    for(int j = 0; j < columns; j++){
+      delete plots.at(i).at(j);
+    }
+  }
 }
 
 

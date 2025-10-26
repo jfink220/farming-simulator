@@ -23,4 +23,5 @@ class Farm {
     void harvest(int row, int column);
     void end_day();
     int day_num();
+    ~Farm();
 };

@@ -21,3 +21,18 @@ TEST_CASE("it returns a W when the carrot is fully grown"){
   carrot.end_day();
   REQUIRE(carrot.symbol() == "W");
 }
+TEST_CASE("cannot harvest a new carrot"){
+  Carrot carrot;
+  REQUIRE(carrot.can_harvest() == false);
+}
+TEST_CASE("can harvest after 1 day maturation"){
+  Carrot carrot;
+  carrot.end_day();
+  REQUIRE(carrot.can_harvest() == true);
+}
+TEST_CASE("can harvest after 2 day maturation"){
+  Carrot carrot;
+  carrot.end_day();
+  carrot.end_day();
+  REQUIRE(carrot.can_harvest() == true);
+}

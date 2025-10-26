@@ -6,7 +6,7 @@
 #include "../src/player.hpp"
 #include "../src/farm.hpp"
 #include "../src/carrot.hpp"
-
+#include <iostream>
 TEST_CASE( "it can be initialized with a single plot" ) {
   Player player;
   Farm farm(1, 1, &player);
@@ -51,16 +51,16 @@ TEST_CASE( "it returns the symbols for a 2x1 farm" ) {
 TEST_CASE( "it allows us to plant a carrot" ) {
   Player player;
   Farm farm(1, 2, &player);
-  Carrot carrot;
-  farm.plant(0, 1, &carrot);
+  Carrot *carrot = new Carrot();
+  farm.plant(0, 1, carrot);
   REQUIRE( farm.get_symbol(0, 1) == "v" );
 }
 
 TEST_CASE("carrot can only be harvested when mature"){
   Player player;
   Farm farm(3, 3, &player);
-  Carrot carrot;
-  farm.plant(0, 1, &carrot);
+  Carrot *carrot = new Carrot();
+  farm.plant(0, 1, carrot);
   REQUIRE( farm.get_symbol(0, 1) == "v" );
   farm.harvest(0,1);
   REQUIRE( farm.get_symbol(0, 1) == "v" );

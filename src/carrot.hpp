@@ -10,4 +10,5 @@ class Carrot : public Plot {
   public:
     std::string symbol() override;
     void end_day() override;
+    bool can_harvest() override;
 };

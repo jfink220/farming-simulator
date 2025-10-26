@@ -14,3 +14,6 @@ std::string Carrot::symbol() {
 void Carrot::end_day(){
   age += 1;
 }
+bool Carrot::can_harvest(){
+  return age >= 1; // specify harvesting age
+}

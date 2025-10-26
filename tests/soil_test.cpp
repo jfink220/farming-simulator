@@ -14,3 +14,13 @@ TEST_CASE( "end_day is a no-op" ) {
   soil.end_day();
   REQUIRE(soil.symbol() == ".");
 }
+TEST_CASE("soil cannot be harvested"){
+  Soil soil;
+  REQUIRE(soil.can_harvest() == false);
+}
+TEST_CASE("soil cannot be harvested even after time passes"){
+  Soil soil;
+  soil.end_day();
+  soil.end_day();
+  REQUIRE(soil.can_harvest() == false);
+}
