@@ -12,6 +12,7 @@ class Farm {
     int columns;
     Player *player;
     std::vector<std::vector<Plot *>> plots;
+    int dayNum;
 
   public:
     Farm(int rows, int columns, Player *player);
@@ -20,4 +21,6 @@ class Farm {
     std::string get_symbol(int row, int column);
     void plant(int row, int column, Plot *plot);
     void harvest(int row, int column);
+    void end_day();
+    int day_num();
 };

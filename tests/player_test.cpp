@@ -13,14 +13,30 @@ TEST_CASE( "it starts the player in row zero, column zero" ) {
 
 TEST_CASE( "it moves the player to the right" ) {
   Player player;
-  player.move_right();
+  player.move_right(3);
   REQUIRE( player.row() == 0 );
   REQUIRE( player.column() == 1 );
 }
 
 TEST_CASE( "it moves the player down" ) {
   Player player;
-  player.move_down();
+  player.move_down(3);
   REQUIRE( player.row() == 1 );
   REQUIRE( player.column() == 0 );
+}
+TEST_CASE("player is unable to move out of bounds"){
+  Player player;
+  player.move_left();
+  player.move_up();
+  int tot_rows{3};
+  int tot_cols{3};
+  REQUIRE(player.column() == 0);
+  REQUIRE(player.row() == 0);
+
+  for(int i =0; i < 5; i++){
+    player.move_right(tot_cols);
+    player.move_down(tot_rows);
+  }
+  REQUIRE(player.row() == tot_rows-1);
+  REQUIRE(player.column() == tot_cols-1);
 }

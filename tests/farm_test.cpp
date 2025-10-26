@@ -55,3 +55,17 @@ TEST_CASE( "it allows us to plant a carrot" ) {
   farm.plant(0, 1, &carrot);
   REQUIRE( farm.get_symbol(0, 1) == "v" );
 }
+
+TEST_CASE("carrot can only be harvested when mature"){
+  Player player;
+  Farm farm(3, 3, &player);
+  Carrot carrot;
+  farm.plant(0, 1, &carrot);
+  REQUIRE( farm.get_symbol(0, 1) == "v" );
+  farm.harvest(0,1);
+  REQUIRE( farm.get_symbol(0, 1) == "v" );
+  farm.end_day();
+  REQUIRE( farm.get_symbol(0, 1) == "V" );
+  farm.harvest(0,1);
+  REQUIRE(farm.get_symbol(0,1) == ".");
+}
