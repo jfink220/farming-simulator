@@ -9,4 +9,5 @@ class Soil : public Plot {
     std::string symbol() override;
     void end_day() override;
     bool can_harvest() override;
+    void water() override;
 };

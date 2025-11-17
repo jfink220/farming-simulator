@@ -9,4 +9,7 @@ void Soil::end_day(){
 bool Soil::can_harvest(){
   return false;
 }
+void Soil::water(){
+  // no-op
+}
 

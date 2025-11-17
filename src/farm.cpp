@@ -64,6 +64,10 @@ void Farm::end_day(){
   }
   dayNum += 1;
 }
+void Farm::water(int row, int column){
+  Plot *current_plot = plots.at(row).at(column);
+  current_plot->water();
+}
 Farm::~Farm(){
   for(int i = 0; i < rows; i++){
     for(int j = 0; j < columns; j++){

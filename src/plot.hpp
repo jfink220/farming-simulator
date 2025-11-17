@@ -7,4 +7,5 @@ class Plot {
     virtual std::string symbol() = 0;
     virtual void end_day() = 0;
     virtual bool can_harvest() = 0;
+    virtual void water() = 0;
 };

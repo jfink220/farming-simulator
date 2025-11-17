@@ -18,8 +18,13 @@ int main() {
   while(game_in_progress) {
     ansi_clear();
     std::cout << "Control Legend: " << std::endl;
+    std::cout << "----------------------" << std::endl;
     std::cout << "Movement: w - move up, a - move left, s - move down, d - move right" << std::endl;
-    std::cout << "Actions: c - plant carrot, h - harvest, e - end day, q - end game\n" << std::endl;
+    std::cout << "----------------------" << std::endl;
+    std::cout << "Actions: h - harvest, t - water plant, e - end day, q - end game" << std::endl;
+    std::cout << "----------------------" << std::endl;
+    std::cout << "Planting: c - plant carrot, l - plant lettuce, u - plant spinach, b - plant beet, \nn - plant brussel sprouts" << std::endl;
+    std::cout << "----------------------" << std::endl;
     std::cout << "Day Number: " << farm.day_num() << std::endl;
     std::cout << printer.pp() << std::endl;
     std::cin >> player_input;
@@ -42,6 +47,8 @@ int main() {
       farm.harvest(player.row(),player.column());
     }else if(player_input == "e"){
       farm.end_day();
+    }else if(player_input == "t"){
+      farm.water(player.row(),player.column());
     }
   }
 }

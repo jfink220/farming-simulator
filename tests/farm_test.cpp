@@ -53,7 +53,7 @@ TEST_CASE( "it allows us to plant a carrot" ) {
   Farm farm(1, 2, &player);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
-  REQUIRE( farm.get_symbol(0, 1) == "v" );
+  REQUIRE( farm.get_symbol(0, 1) == "_" );
 }
 
 TEST_CASE("carrot can only be harvested when mature"){
@@ -61,11 +61,20 @@ TEST_CASE("carrot can only be harvested when mature"){
   Farm farm(3, 3, &player);
   Carrot *carrot = new Carrot();
   farm.plant(0, 1, carrot);
-  REQUIRE( farm.get_symbol(0, 1) == "v" );
+  REQUIRE( farm.get_symbol(0, 1) == "_" );
   farm.harvest(0,1);
-  REQUIRE( farm.get_symbol(0, 1) == "v" );
+  REQUIRE( farm.get_symbol(0, 1) == "_" );
   farm.end_day();
   REQUIRE( farm.get_symbol(0, 1) == "V" );
   farm.harvest(0,1);
   REQUIRE(farm.get_symbol(0,1) == ".");
+}
+TEST_CASE("can water a carrot"){
+  Player player;
+  Farm farm(3, 3, &player);
+  Carrot *carrot = new Carrot();
+  farm.plant(0, 1, carrot);
+  farm.water(0,1);
+  farm.end_day();
+  REQUIRE(carrot->get_age() == 2);
 }
