@@ -5,6 +5,10 @@
 #include "src/farm_printer.hpp"
 #include "src/carrot.hpp"
 #include "src/ansi_clear.hpp"
+#include "src/lettuce.hpp"
+#include "src/spinach.hpp"
+#include "src/beet.hpp"
+#include "src/brussel_sprout.hpp"
 
 int main() {
   Player player;
@@ -49,6 +53,18 @@ int main() {
       farm.end_day();
     }else if(player_input == "t"){
       farm.water(player.row(),player.column());
+    }else if(player_input == "l"){
+      Lettuce *lettuce = new Lettuce();
+      farm.plant(player.row(), player.column(), lettuce);
+    }else if(player_input == "u"){
+      Spinach *spinach = new Spinach();
+      farm.plant(player.row(), player.column(), spinach);
+    }else if(player_input == "b"){
+      Beet *beet = new Beet();
+      farm.plant(player.row(), player.column(), beet);
+    }else if(player_input == "n"){
+      Brussel_Sprout *brussel_sprout = new Brussel_Sprout();
+      farm.plant(player.row(), player.column(), brussel_sprout);
     }
   }
 }

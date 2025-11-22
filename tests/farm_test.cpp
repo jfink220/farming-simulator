@@ -6,6 +6,10 @@
 #include "../src/player.hpp"
 #include "../src/farm.hpp"
 #include "../src/carrot.hpp"
+#include "../src/lettuce.hpp"
+#include "../src/spinach.hpp"
+#include "../src/brussel_sprout.hpp"
+#include "../src/beet.hpp"
 #include <iostream>
 TEST_CASE( "it can be initialized with a single plot" ) {
   Player player;
@@ -77,4 +81,21 @@ TEST_CASE("can water a carrot"){
   farm.water(0,1);
   farm.end_day();
   REQUIRE(carrot->get_age() == 2);
+}
+TEST_CASE("cannot plant one seed over another"){
+  Player player;
+  Farm farm(3, 3, &player);
+  Carrot *carrot = new Carrot();
+  Lettuce *lettuce = new Lettuce();
+  farm.plant(0,1, carrot);
+  farm.plant(0,1, lettuce);
+  farm.end_day();
+  REQUIRE(farm.get_symbol(0,1) == "V");
+}
+TEST_CASE("nothing happens when watering bare soil"){
+  Player player;
+  Farm farm(3, 3, &player);
+  farm.water(0,1);
+  farm.end_day();
+  REQUIRE(farm.get_symbol(0,1) == ".");
 }
