@@ -1,10 +1,10 @@
 #include <string>
 #include <vector>
-
+#include <iostream>
 #include "farm.hpp"
 #include "soil.hpp"
 
-Farm::Farm(int rows, int columns, Player *player) : rows(rows), columns(columns), player(player), dayNum(1) {
+Farm::Farm(int rows, int columns, Player *player, Bunny *bunny) : rows(rows), columns(columns), player(player), bunny(bunny), dayNum(1) {
   for(int i = 0; i < rows; i++) {
     std::vector<Plot *> row;
     for(int j = 0; j < columns; j++) {
@@ -13,11 +13,28 @@ Farm::Farm(int rows, int columns, Player *player) : rows(rows), columns(columns)
     }
     plots.push_back(row);
   }
+
+  if(bunny->can_spawn()){
+    spawn();
+  }
+}
+
+void Farm::spawn(){
+  int side_1 = (rand()%2);
+  int b_row = (side_1 == 0) ? rand()%rows : 0;
+  int b_column = (side_1 == 0) ? 0 : rand()%columns;
+  while(b_row == player->row() && b_column == player->column()){
+    side_1 = (rand()%2);
+    b_row = (side_1 == 0) ? rand()%rows : 0;
+    b_column = (side_1 == 0) ? 0 : rand()%columns;
+  }
+  bunny->spawn(b_row, b_column);
 }
 
 int Farm::number_of_rows() {
   return rows;
 }
+
 
 int Farm::number_of_columns() {
   return columns;
@@ -30,7 +47,10 @@ int Farm::day_num(){
 std::string Farm::get_symbol(int row, int column) {
   if(player->row() == row && player->column() == column) {
     return "@";
-  } else {
+  } else if(bunny->row() == row && bunny->column() == column){
+    return "&";
+  }
+  else {
     return plots.at(row).at(column)->symbol();
   }
 }
@@ -55,7 +75,6 @@ void Farm::harvest(int row, int column){
 
 }
 
-// write tests
 void Farm::end_day(){
   for(int i = 0; i < rows; i++) {
     for(int j = 0; j < columns; j++) {
@@ -63,11 +82,29 @@ void Farm::end_day(){
     }
   }
   dayNum += 1;
+  if(bunny->can_spawn()){
+    spawn();
+  }else{
+    delete_crop(bunny->row(), bunny->column());
+    bunny->move_right(columns);
+  }
+  
 }
 void Farm::water(int row, int column){
   Plot *current_plot = plots.at(row).at(column);
   current_plot->water();
 }
+
+void Farm::delete_crop(int row, int column){
+  if(row >= 0 && column >= 0 && row < rows && column < columns){
+    Plot *current_plot = plots.at(row).at(column);
+    Plot *new_plot = new Soil();
+    plots.at(row).at(column) = new_plot;
+    delete current_plot;
+  }
+
+}
+
 Farm::~Farm(){
   for(int i = 0; i < rows; i++){
     for(int j = 0; j < columns; j++){

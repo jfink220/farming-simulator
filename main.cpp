@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 #include "src/player.hpp"
 #include "src/farm.hpp"
@@ -11,10 +12,12 @@
 #include "src/brussel_sprout.hpp"
 
 int main() {
+  std::srand(std::time(0));
   Player player;
+  Bunny bunny;
   int farm_rows{7};
   int farm_columns{8};
-  Farm farm(farm_rows, farm_columns, &player);
+  Farm farm(farm_rows, farm_columns, &player, &bunny);
   FarmPrinter printer(&farm);
   bool game_in_progress = true;
   std::string player_input;
