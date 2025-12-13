@@ -8,8 +8,8 @@ class Player {
   public:
     int row();
     int column();
-    void move_right(int columns);
-    void move_down(int rows);
-    void move_up();
-    void move_left();
+    void move_right(int columns, int b_row, int b_column);
+    void move_down(int rows, int b_row, int b_column);
+    void move_up(int b_row, int b_column);
+    void move_left(int b_row, int b_column);
 };

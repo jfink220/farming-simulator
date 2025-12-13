@@ -4,7 +4,7 @@
 #include "farm.hpp"
 #include "soil.hpp"
 
-Farm::Farm(int rows, int columns, Player *player, Bunny *bunny) : rows(rows), columns(columns), player(player), bunny(bunny), dayNum(1) {
+Farm::Farm(int rows, int columns, Player *player, Bunny *bunny, bool bunny_on) : rows(rows), columns(columns), player(player), bunny(bunny), dayNum(1), bunny_on(bunny_on) {
   for(int i = 0; i < rows; i++) {
     std::vector<Plot *> row;
     for(int j = 0; j < columns; j++) {
@@ -14,7 +14,7 @@ Farm::Farm(int rows, int columns, Player *player, Bunny *bunny) : rows(rows), co
     plots.push_back(row);
   }
 
-  if(bunny->can_spawn()){
+  if(bunny_on && bunny->can_spawn()){
     spawn();
   }
 }
@@ -47,7 +47,7 @@ int Farm::day_num(){
 std::string Farm::get_symbol(int row, int column) {
   if(player->row() == row && player->column() == column) {
     return "@";
-  } else if(bunny->row() == row && bunny->column() == column){
+  } else if(bunny->row() == row && bunny->column() == column && bunny_on){
     return "&";
   }
   else {
@@ -86,7 +86,21 @@ void Farm::end_day(){
     spawn();
   }else{
     delete_crop(bunny->row(), bunny->column());
-    bunny->move_right(columns);
+    if(!bunny->is_panicking(rows, columns, player->row(), player->column())){
+      int choice = rand()%10;
+      if(choice == 0){
+        bunny->move_left();
+      }
+      else if(choice == 1){
+        bunny->move_up();
+      }
+      else if(choice == 2){
+        bunny->move_down(rows);
+      }
+      else if(choice >= 3){
+        bunny->move_right(columns);        
+      }
+    }
   }
   
 }
@@ -111,6 +125,10 @@ Farm::~Farm(){
       delete plots.at(i).at(j);
     }
   }
+}
+
+void Farm::bunny_off(){
+  bunny_on = false;
 }
 
 

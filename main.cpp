@@ -17,7 +17,8 @@ int main() {
   Bunny bunny;
   int farm_rows{7};
   int farm_columns{8};
-  Farm farm(farm_rows, farm_columns, &player, &bunny);
+  const bool BUNNY_ON = true;
+  Farm farm(farm_rows, farm_columns, &player, &bunny, BUNNY_ON);
   FarmPrinter printer(&farm);
   bool game_in_progress = true;
   std::string player_input;
@@ -40,13 +41,13 @@ int main() {
       game_in_progress = false;
       std::cout << "\nThank you for playing the Farming Simulator." << std::endl;
     } else if(player_input == "d") {
-      player.move_right(farm_columns);
+      player.move_right(farm_columns, bunny.row(), bunny.column());
     } else if(player_input == "s") {
-      player.move_down(farm_rows);
+      player.move_down(farm_rows, bunny.row(), bunny.column());
     } else if(player_input == "a"){
-      player.move_left();
+      player.move_left(bunny.row(), bunny.column());
     } else if(player_input == "w"){
-      player.move_up();
+      player.move_up(bunny.row(), bunny.column());
     }else if(player_input == "c") {
       Carrot *carrot = new Carrot();
       farm.plant(player.row(), player.column(), carrot);

@@ -22,7 +22,6 @@ TEST_CASE("brussel sprout matures after 10 days"){
 }
 TEST_CASE("can expedite maturation process to 5 days by watering"){
     Brussel_Sprout brussel_sprout;
-    // end day 5 times
     brussel_sprout.water();
     brussel_sprout.end_day();
     brussel_sprout.water();

@@ -13,4 +13,6 @@ class Bunny{
         void end_day();
         void spawn(int row, int column);
         bool can_spawn();
+        bool is_spawned();
+        bool is_panicking(int rows, int columns, int plr_row, int plr_column);
 };
